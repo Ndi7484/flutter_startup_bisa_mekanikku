@@ -1,4 +1,4 @@
-# flutter_mekanikku
+# mekanikku_application
 
 A new Flutter project.
 

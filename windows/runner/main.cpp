@@ -27,7 +27,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
+<<<<<<< HEAD
   if (!window.Create(L"flutter_mekanikku", origin, size)) {
+=======
+  if (!window.Create(L"mekanikku_application", origin, size)) {
+>>>>>>> 1df6cbb924cb9bb9e147612d7c4ea8f4b5cc71c2
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

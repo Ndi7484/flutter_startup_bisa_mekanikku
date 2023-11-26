@@ -90,12 +90,21 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
+<<<<<<< HEAD
             VALUE "FileDescription", "flutter_mekanikku" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "flutter_mekanikku" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "flutter_mekanikku.exe" "\0"
             VALUE "ProductName", "flutter_mekanikku" "\0"
+=======
+            VALUE "FileDescription", "mekanikku_application" "\0"
+            VALUE "FileVersion", VERSION_AS_STRING "\0"
+            VALUE "InternalName", "mekanikku_application" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "mekanikku_application.exe" "\0"
+            VALUE "ProductName", "mekanikku_application" "\0"
+>>>>>>> 1df6cbb924cb9bb9e147612d7c4ea8f4b5cc71c2
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

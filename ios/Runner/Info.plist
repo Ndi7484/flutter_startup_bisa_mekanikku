@@ -5,7 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
+<<<<<<< HEAD
 	<string>Flutter Mekanikku</string>
+=======
+	<string>Mekanikku Application</string>
+>>>>>>> 1df6cbb924cb9bb9e147612d7c4ea8f4b5cc71c2
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +17,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+<<<<<<< HEAD
 	<string>flutter_mekanikku</string>
+=======
+	<string>mekanikku_application</string>
+>>>>>>> 1df6cbb924cb9bb9e147612d7c4ea8f4b5cc71c2
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

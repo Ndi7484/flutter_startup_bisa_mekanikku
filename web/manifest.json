@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "flutter_mekanikku",
     "short_name": "flutter_mekanikku",
+=======
+    "name": "mekanikku_application",
+    "short_name": "mekanikku_application",
+>>>>>>> 1df6cbb924cb9bb9e147612d7c4ea8f4b5cc71c2
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -3,8 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   flutter_secure_storage_linux
   url_launcher_linux
+=======
+>>>>>>> 1df6cbb924cb9bb9e147612d7c4ea8f4b5cc71c2
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
