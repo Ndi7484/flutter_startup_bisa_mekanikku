@@ -37,10 +37,15 @@ class UiSettingsProvider extends ChangeNotifier {
     return data_item;
   }
 
-  List<rand.Result> _listUser = [];
+  // List<rand.Result> _listUser = [];
+  String _person = '';
+  String get person => _person;
+  set person(value) {
+    _person;
+    notifyListeners();
+  }
 
-
-  Future<List<rand.Result>> getPerson() async{
+  Future<List<rand.Result>> getPerson() async {
     final data = await helper.getPerson();
     rand.RandomUser data_item = rand.randomUserFromJson(data);
     return data_item.results;
