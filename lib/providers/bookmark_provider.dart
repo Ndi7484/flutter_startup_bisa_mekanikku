@@ -6,9 +6,11 @@ class BookmarkProvider extends ChangeNotifier {
 
   void savedBookmark(Result value) {
     savedPerson.add(value);
+    notifyListeners();
   }
 
   void removeBookmark(Result value) {
     savedPerson.remove(value);
+    notifyListeners();
   }
 }

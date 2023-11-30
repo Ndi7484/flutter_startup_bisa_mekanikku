@@ -23,7 +23,6 @@ class _MainPageAppbarState extends State<MainPageAppbar> {
     final authProv = Provider.of<AuthProvider>(context);
 
     return AppBar(
-      toolbarHeight: 75,
       elevation: (widget.offset > 10) ? 7 : 0,
       title: Padding(
         padding: const EdgeInsets.only(left: 8.0),

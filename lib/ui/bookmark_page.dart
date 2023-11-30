@@ -17,15 +17,31 @@ class BookmarkPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: List.generate(
+          child: Column(children: [
+            if (provBook.savedPerson.isEmpty)
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.35,
+              ),
+            if (provBook.savedPerson.isEmpty)
+              const Center(
+                child: Column(
+                  children: [
+                    Icon(Icons.star_border,size: 30,),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text('Try Adding more bookmarks..')
+                  ],
+                ),
+              ),
+            ...List.generate(
               provBook.savedPerson.length,
               (index) => MechanicCard(
                 result: provBook.savedPerson[index],
                 bookmark_page: true,
               ),
             ),
-          ),
+          ]),
         ),
       ),
     );

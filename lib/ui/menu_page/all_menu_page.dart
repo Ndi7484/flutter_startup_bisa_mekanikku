@@ -12,7 +12,9 @@ class _AllMenuPageState extends State<AllMenuPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [],
+        children: [
+          
+        ],
       ),
     );
   }

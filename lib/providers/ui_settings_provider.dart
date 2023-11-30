@@ -33,7 +33,7 @@ class UiSettingsProvider extends ChangeNotifier {
     final data = await helper.getLocation();
     List<loc.Location> data_item = loc.locationFromJson(data);
     _items = List.generate(data_item.length, (index) => data_item[index].name);
-    selectedValue ??= _items[0];
+    selectedValue ??= _items[1];
     return data_item;
   }
 

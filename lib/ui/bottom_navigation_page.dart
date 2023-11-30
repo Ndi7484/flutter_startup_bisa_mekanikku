@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mekanikku/ui/main_page/main_page.dart';
+import 'package:flutter_mekanikku/ui/main_page/main_page_appbar.dart';
+import 'package:flutter_mekanikku/ui/main_page/main_page_body.dart';
+import 'package:flutter_mekanikku/ui/menu_page/all_menu_appbar.dart';
+import 'package:flutter_mekanikku/ui/menu_page/all_menu_page.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({super.key});
@@ -9,32 +12,53 @@ class BottomNavigationPage extends StatefulWidget {
 }
 
 class _BottomNavigationPageState extends State<BottomNavigationPage> {
+  ScrollController scrollControllerMainPage = ScrollController();
+  double offsetMainPage = 0.0;
   int _selectedIndex = 0;
+  // bool dark_mode = true;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _selectedIndex = widget
-  //       .selectNext; // Assign the value from widget.selectNext to _selectedIndex
-  // }
+  @override
+  void initState() {
+    super.initState();
+    scrollControllerMainPage.addListener(_scrollListener);
+  }
 
-  final List<String> _appBarContent = [
-    'Main',
-    'Menu',
-    'DRS News',
-  ];
-  final List<dynamic> _bodyFill = [
-    const MainPage(),
-    // const MenuPage(),
-    // const PointsPage(),
-    // const PromoPage(),
-    // const OrdersPage(),
-  ];
+  // Define a method to handle scroll events
+  void _scrollListener() {
+    setState(() {
+      offsetMainPage = scrollControllerMainPage.offset;
+    });
+  }
+
+  PreferredSizeWidget? _appBarFunc() {
+    if (_selectedIndex == 0) {
+      return MainPageAppbar(
+        offset: offsetMainPage,
+      );
+    } else if (_selectedIndex == 1) {
+      return AllMenuAppbar();
+    } else if (_selectedIndex == 2) {
+      MainPageAppbar(
+        offset: offsetMainPage,
+      );
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _bodyFill[_selectedIndex],
+      extendBodyBehindAppBar: true,
+      appBar: _appBarFunc(),
+      body: switch (_selectedIndex) {
+        0 => MainPageBody(
+            offset: offsetMainPage,
+            scrollController: scrollControllerMainPage,
+          ),
+        1 => const AllMenuPage(),
+        // TODO: Handle this case.
+        int() => null,
+      },
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -48,7 +72,9 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).colorScheme.secondary,
         onTap: (index) {
-          _selectedIndex = index;
+          setState(() {
+            _selectedIndex = index;
+          });
         },
       ),
     );

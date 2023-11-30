@@ -45,10 +45,21 @@ class MechanicCard extends StatelessWidget {
                 if (bookmark_page) {
                   provBook.removeBookmark(result);
                 } else {
-                  provBook.savedBookmark(result);
+                  if (provBook.savedPerson.contains(result)) {
+                    provBook.removeBookmark(result);
+                  } else {
+                    provBook.savedBookmark(result);
+                  }
                 }
               },
-              icon: const Icon(Icons.star_border_outlined),
+              icon: (provBook.savedPerson.contains(result))
+                  ? const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    )
+                  : const Icon(
+                      Icons.star_border_outlined,
+                    ),
             ),
           ],
         ),
