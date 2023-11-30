@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/providers/auth_provider.dart';
 import 'package:flutter_mekanikku/providers/ui_settings_provider.dart';
+import 'package:flutter_mekanikku/ui/bookmark_page.dart';
 import 'package:flutter_mekanikku/ui/profile_page.dart';
 import 'package:flutter_mekanikku/ui/widgets/ads_widget.dart';
 import 'package:flutter_mekanikku/ui/widgets/carousel.dart';
@@ -92,7 +93,12 @@ class _MainPageState extends State<MainPage> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookmarkPage()),
+              );
+            },
             child: const Icon(
               Icons.star_border,
               color: Colors.grey,
@@ -156,12 +162,28 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(
                     height: 16,
                   ),
-                  const Text(
-                    "Our People",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold),
+                  Row(
+                    children: [
+                      const Text(
+                        "Our People",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Spacer(),
+                      TextButton(
+                          style: const ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  Color.fromARGB(255, 0, 255, 251))),
+                          onPressed: () {
+                            provUi.person = 'b';
+                          },
+                          child: const Text(
+                            'refresh people',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ],
                   ),
                   const SizedBox(
                     height: 8,

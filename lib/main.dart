@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/providers/ads_provider.dart';
 import 'package:flutter_mekanikku/providers/auth_provider.dart';
+import 'package:flutter_mekanikku/providers/bookmark_provider.dart';
 import 'package:flutter_mekanikku/providers/ui_settings_provider.dart';
 import 'package:flutter_mekanikku/ui/logo_page.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => UiSettingsProvider()..getLocation()),
         ChangeNotifierProvider(create: (context) => AdsProvider()..loadApiAds()),
+        ChangeNotifierProvider(create: (context) => BookmarkProvider()),
       ],
       child: MaterialApp(
         title: 'Randumu App',

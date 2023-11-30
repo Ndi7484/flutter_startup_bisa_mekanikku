@@ -9,7 +9,8 @@ class MechanicListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provUi = Provider.of<UiSettingsProvider>(context);
-
+    String tmp = provUi.person;
+    
     return FutureBuilder(
       future: provUi.getPerson(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -19,6 +20,7 @@ class MechanicListWidget extends StatelessWidget {
                 snapshot.data.length,
                 (index) => MechanicCard(
                       result: snapshot.data[index],
+                      bookmark_page: false,
                     )),
           );
         }
