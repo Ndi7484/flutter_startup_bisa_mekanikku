@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/providers/auth_provider.dart';
-import 'package:flutter_mekanikku/ui/main_page.dart';
+import 'package:flutter_mekanikku/ui/bottom_navigation_page.dart';
+// import 'package:flutter_mekanikku/ui/main_page.dart';
 import 'package:flutter_mekanikku/ui/register_page.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class LoginPage extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const MainPage(),
+              builder: (context) => const BottomNavigationPage(),
             ),
             (route) => false);
       });

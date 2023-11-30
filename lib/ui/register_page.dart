@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/providers/auth_provider.dart';
 import 'package:flutter_mekanikku/ui/login_page.dart';
-import 'package:flutter_mekanikku/ui/main_page.dart';
+import 'package:flutter_mekanikku/ui/main_page/main_page.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatelessWidget {
