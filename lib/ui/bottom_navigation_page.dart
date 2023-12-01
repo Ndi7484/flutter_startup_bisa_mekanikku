@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mekanikku/ui/blog_news_page/blog_page.dart';
 import 'package:flutter_mekanikku/ui/main_page/main_page_appbar.dart';
 import 'package:flutter_mekanikku/ui/main_page/main_page_body.dart';
 import 'package:flutter_mekanikku/ui/menu_page/all_menu_appbar.dart';
@@ -38,8 +39,8 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     } else if (_selectedIndex == 1) {
       return AllMenuAppbar();
     } else if (_selectedIndex == 2) {
-      MainPageAppbar(
-        offset: offsetMainPage,
+      return AppBar(
+        title: const Text('DRS Update'),
       );
     }
     return null;
@@ -56,6 +57,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             scrollController: scrollControllerMainPage,
           ),
         1 => const AllMenuPage(),
+        2 => const BlogPage(),
         // TODO: Handle this case.
         int() => null,
       },

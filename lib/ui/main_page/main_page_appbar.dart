@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/providers/auth_provider.dart';
+import 'package:flutter_mekanikku/providers/bookmark_provider.dart';
 import 'package:flutter_mekanikku/providers/ui_settings_provider.dart';
 import 'package:flutter_mekanikku/ui/bookmark_page.dart';
 import 'package:flutter_mekanikku/ui/profile_page.dart';
@@ -20,6 +21,7 @@ class _MainPageAppbarState extends State<MainPageAppbar> {
   @override
   Widget build(BuildContext context) {
     final provUi = Provider.of<UiSettingsProvider>(context);
+    final provBook = Provider.of<BookmarkProvider>(context);
     final authProv = Provider.of<AuthProvider>(context);
 
     return AppBar(
@@ -82,9 +84,15 @@ class _MainPageAppbarState extends State<MainPageAppbar> {
               MaterialPageRoute(builder: (context) => const BookmarkPage()),
             );
           },
-          child: const Icon(
-            Icons.star_border,
-            color: Colors.grey,
+          child: Icon(
+            (provBook.savedPerson.isNotEmpty) ? Icons.star : Icons.star_border,
+            color: (widget.offset > 10)
+                ? (provBook.savedPerson.isNotEmpty)
+                    ? Colors.amber
+                    : Colors.black
+                : (provBook.savedPerson.isNotEmpty)
+                    ? Colors.amber
+                    : Colors.grey,
             size: 30,
           ),
         ),
