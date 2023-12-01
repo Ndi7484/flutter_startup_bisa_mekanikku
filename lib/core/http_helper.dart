@@ -7,6 +7,8 @@ class HttpHelper {
   final String _urlPerson = 'https://randomuser.me/api/?results=10';
   final String _urlBase =
       'https://sublimeads.com/api/random?token=HdizxtNtwjGnQdE3SY0Sxeez0bqWZx3Mo3kG7NYzs-w&id=UtNW280YrPL0bg';
+  final String _urlFoodMenu =
+      'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
   Future<String> getAds() async {
     var url = Uri.parse(_urlBase);
@@ -24,6 +26,15 @@ class HttpHelper {
     if (result.statusCode == HttpStatus.ok) {
       String responseBody = result.body;
       return responseBody;
+    }
+    return result.statusCode.toString();
+  }
+
+  Future<String> getMenuAll(String? query) async {
+    var url = Uri.parse(_urlFoodMenu + (query ?? ''));
+    http.Response result = await http.get(url);
+    if (result.statusCode == HttpStatus.ok) {
+      return result.body;
     }
     return result.statusCode.toString();
   }

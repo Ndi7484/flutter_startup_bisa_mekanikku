@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mekanikku/providers/menu_provider.dart';
+import 'package:provider/provider.dart';
 
 class AllMenuAppbar extends StatefulWidget implements PreferredSizeWidget {
   AllMenuAppbar({super.key});
@@ -15,10 +17,12 @@ class _AllMenuAppbarState extends State<AllMenuAppbar> {
 
   @override
   Widget build(BuildContext context) {
+    final provMenu = Provider.of<MenuProvider>(context);
+
     return AppBar(
-      toolbarHeight: MediaQuery.of(context).size.height*0.05,
-      title:  Container(
-        decoration: BoxDecoration(color: Colors.white),
+      toolbarHeight: MediaQuery.of(context).size.height * 0.05,
+      title: Container(
+        decoration: const BoxDecoration(color: Colors.white),
         child: TextField(
           controller: _searchController,
           decoration: const InputDecoration(
@@ -26,16 +30,19 @@ class _AllMenuAppbarState extends State<AllMenuAppbar> {
             fillColor: Colors.white,
             border: OutlineInputBorder(),
           ),
-          onChanged: (value){
+          onChanged: (value) {
             setState(() {
               _searchController.text = value;
+              provMenu.error = '';
             });
           },
         ),
       ),
       actions: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            provMenu.loadApiMenu(_searchController.text.toString());
+          },
           child: const Icon(Icons.search),
         ),
       ],
