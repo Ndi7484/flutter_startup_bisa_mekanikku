@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/providers/menu_provider.dart';
+import 'package:flutter_mekanikku/ui/bookmark_page.dart';
+import 'package:flutter_mekanikku/ui/menu_page/menu_bookmark.dart';
 import 'package:provider/provider.dart';
 
 class AllMenuAppbar extends StatefulWidget implements PreferredSizeWidget {
@@ -45,6 +47,16 @@ class _AllMenuAppbarState extends State<AllMenuAppbar> {
           },
           child: const Icon(Icons.search),
         ),
+        const SizedBox(
+          width: 4,
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MenuBookmark()));
+          },
+          child: const Icon(Icons.bookmark),
+        )
       ],
     );
   }

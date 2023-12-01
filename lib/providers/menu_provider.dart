@@ -44,4 +44,15 @@ class MenuProvider extends ChangeNotifier {
   //   );
   //   return tmp;
   // }
+  List<FoodMenu> savedMenu = [];
+
+  void savedBookmark(FoodMenu value) {
+    savedMenu.add(value);
+    notifyListeners();
+  }
+
+  void removeBookmark(FoodMenu value) {
+    savedMenu.remove(value);
+    notifyListeners();
+  }
 }

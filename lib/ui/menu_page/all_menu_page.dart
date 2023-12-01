@@ -14,6 +14,8 @@ class _AllMenuPageState extends State<AllMenuPage> {
   @override
   Widget build(BuildContext context) {
     final provMenu = Provider.of<MenuProvider>(context);
+    // ignore: unused_local_variable
+    var _saved = provMenu.savedMenu;
 
     return SingleChildScrollView(
       child: Column(children: [

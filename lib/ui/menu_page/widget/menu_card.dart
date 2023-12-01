@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/models/menu_model.dart';
+import 'package:flutter_mekanikku/providers/menu_provider.dart';
+import 'package:flutter_mekanikku/ui/menu_page/menu_detail.dart';
+import 'package:provider/provider.dart';
 
 class MenuCard extends StatelessWidget {
   FoodMenu foodMenu;
@@ -7,6 +10,8 @@ class MenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provMenu = Provider.of<MenuProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
       child: Card(
@@ -91,20 +96,44 @@ class MenuCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 115,
                 child: Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 3,
                     right: 3,
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.bookmark_add),
-                      Spacer(),
-                      Icon(
-                        Icons.list_rounded,
-                        color: Colors.grey,
+                      GestureDetector(
+                          onTap: () {
+                            if (provMenu.savedMenu.contains(foodMenu)) {
+                              provMenu.savedMenu.remove(foodMenu);
+                            } else {
+                              provMenu.savedMenu.add(foodMenu);
+                            }
+                          },
+                          child: (!provMenu.savedMenu.contains(foodMenu))
+                              ? const Icon(Icons.bookmark_add)
+                              : const Icon(
+                                  Icons.bookmark,
+                                  color: Colors.amber,
+                                )),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MenuDetail(foodMenu: foodMenu),
+                            ),
+                          );
+                        },
+                        child: const Icon(
+                          Icons.list_rounded,
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
