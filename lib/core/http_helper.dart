@@ -12,6 +12,9 @@ class HttpHelper {
       'https://p.eagate.573.jp/game/dan/1st/news/news.html';
   final String _urlFoodMenu =
       'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  final String _urlTranslate =
+      'https://www.google.com/async/translate?vet=12ahUKEwiX6_37pdKCAxWyfWwGHaJzCEYQqDh6BAgFEDA..i&ei=KytbZdepOrL7seMPouehsAQ&opi=89978449&yv=3&cs=1';
+  final String _urlBingTranslate = 'https://www.bing.com/ttranslatev3?&IG=EF77DA31665B401ABFA8A4EE1CD4462A&IID=SERP.5666';
 
   Future<String> getAds() async {
     var url = Uri.parse(_urlBase);
@@ -63,5 +66,57 @@ class HttpHelper {
     }
 
     return 'Failed to fetch and parse HTML';
+  }
+
+  Future<String> postTranslate(String toTrans) async {
+    var url = Uri.parse(_urlTranslate);
+    // translate,sl:ja,tl:en,st:GYM6の2曲目のプログラムは「All All Night」！,id:1701444632928,qc:true,ac:false,_id:tw-async-translate,_pms:s,_fmt:pc
+    Map<String, dynamic> body = {
+      "async":
+          'translate,sl:ja,tl:en,st:$toTrans,id:1701444632928,qc:true,ac:false,_id:tw-async-translate,_pms:s,_fmt:pc'
+    };
+
+    http.Response result = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: Uri(queryParameters: body).query,
+    );
+
+    if (result.statusCode == 200) {
+      print("Request successful: ${result.body}");
+      return result.body;
+    }
+    print("Request failed with status: ${result.statusCode}");
+    return 'result.body';
+  }
+
+  Future<String> postBingTranslate(String toTrans) async {
+    var url = Uri.parse(_urlBingTranslate);
+    // translate,sl:ja,tl:en,st:GYM6の2曲目のプログラムは「All All Night」！,id:1701444632928,qc:true,ac:false,_id:tw-async-translate,_pms:s,_fmt:pc
+    Map<String, dynamic> body = {
+      "fromLang": 'ja',
+      "text": toTrans,
+      "to": 'en',
+      "token": 'S9-RJiHEX3Oec1S6LHX62nYw6xkmUJbZ',
+      "key" : '1701449842823',
+      "tryFetchingGenderDebiasedTranslations" : 'true'
+    };
+
+    http.Response result = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: Uri(queryParameters: body).query,
+    );
+
+    if (result.statusCode == 200) {
+      print("Request successful: ${result.body}");
+      return result.body;
+    }
+    print("Request failed with status: ${result.statusCode}");
+    return 'result.body';
   }
 }

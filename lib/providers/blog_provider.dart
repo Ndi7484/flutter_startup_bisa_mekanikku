@@ -1,4 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mekanikku/core/http_helper.dart';
@@ -67,7 +69,7 @@ class BlogProvider extends ChangeNotifier {
     return formattedDateTime;
   }
 
-  String titleParser(String htmlContent) {
+  Future<String> titleParser(String htmlContent) async {
     // Parse the HTML content
     var document = parse(htmlContent);
 
@@ -77,14 +79,14 @@ class BlogProvider extends ChangeNotifier {
     if (titleElement != null) {
       // Extract the text content within the <div> element
       String textContent = titleElement.text;
-      return tr(textContent);
+      return await googleTranslate(textContent);
     }
     return '';
   }
 
   String? contentParser(String htmlContent) {
     var document = parse(htmlContent);
-    
+
     List<dom.Node> listElement = [];
 
     var detailElement = document.querySelector('.cl_news_detail');
@@ -99,7 +101,7 @@ class BlogProvider extends ChangeNotifier {
     return (detailElement?.innerHtml);
   }
 
-  Widget easyContent(String htmlContent) {
+  Future<Widget> easyContent(String htmlContent) async {
     htmlContent = htmlContent.replaceAll('<br>', '\n');
     var document = parse(htmlContent);
 
@@ -129,7 +131,7 @@ class BlogProvider extends ChangeNotifier {
                       ?.replaceAll('"', '');
                   print(match);
                 },
-              text: tr(elements[i + 1]!),
+              text: await googleTranslate(elements[i + 1]!),
               style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
@@ -152,7 +154,7 @@ class BlogProvider extends ChangeNotifier {
       } else {
         listString.add(
           Text(
-            tr(el.trim()),
+            await googleTranslate(el.trim()),
           ),
         );
       }
@@ -172,7 +174,7 @@ class BlogProvider extends ChangeNotifier {
     );
   }
 
-  Widget eventContent(BuildContext context, String htmlContent) {
+  Future<Widget> eventContent(BuildContext context, String htmlContent) async {
     htmlContent = htmlContent.replaceAll('<br>', '\n');
     var document = parse(htmlContent);
 
@@ -202,7 +204,7 @@ class BlogProvider extends ChangeNotifier {
               color: Colors.grey[850],
             ),
             child: Text(
-              tr(el.innerHtml.toString()),
+              await googleTranslate(el.innerHtml.toString()),
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -214,7 +216,7 @@ class BlogProvider extends ChangeNotifier {
         _listWidget.add(Padding(
           padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
           child: Text(
-            '${tr(el.text.replaceAll('\n', '').toString())}\n',
+            '${await googleTranslate(el.text.replaceAll('\n', '').toString())}\n',
           ),
         ));
       } else if (el.className == 'news_2clm') {
@@ -223,7 +225,8 @@ class BlogProvider extends ChangeNotifier {
         var _queryTextChild = news2clmParse.querySelector('.text')?.children;
 
         // Split the input string using regular expressions to extract HTML elements
-        List<String> elements = (_queryTextHtml ?? '').split(RegExp(r'(<[^>]*>.*?)'));
+        List<String> elements =
+            (_queryTextHtml ?? '').split(RegExp(r'(<[^>]*>.*?)'));
 
         // Remove empty or whitespace elements
         elements.removeWhere((element) => element.trim().isEmpty);
@@ -243,20 +246,8 @@ class BlogProvider extends ChangeNotifier {
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
             child: Text.rich(
               TextSpan(
-                  children: List.generate(elements.length, (index) {
-                if (listYellow.contains(elements[index])) {
-                  return TextSpan(
-                      text: tr(elements[index].trim()),
-                      style: const TextStyle(
-                          backgroundColor: Colors.yellowAccent));
-                } else if (listRed.contains(elements[index])) {
-                  return TextSpan(
-                      text: tr(elements[index].trim()),
-                      style: const TextStyle(color: Colors.red));
-                } else {
-                  return TextSpan(text: tr(elements[index].trim()));
-                }
-              })),
+                  children:
+                      await _textSpanChildren(elements, listYellow, listRed)),
             ),
           ),
         );
@@ -278,7 +269,7 @@ class BlogProvider extends ChangeNotifier {
         for (var el2 in el.text.split('\n')) {
           _listWidget.add(Padding(
             padding: const EdgeInsets.only(left: 8, right: 8),
-            child: Text(tr(el2.trim())),
+            child: Text(await googleTranslate(el2.trim())),
           ));
         }
         _listWidget.add(
@@ -304,11 +295,56 @@ class BlogProvider extends ChangeNotifier {
     );
   }
 
+  Future<List<InlineSpan>?> _textSpanChildren(List<String> elements,
+      List<String> listYellow, List<String> listRed) async {
+    List<InlineSpan> tmpInlineSpan = [];
+    for (var index = 0; index < elements.length; index++) {
+      if (listYellow.contains(elements[index])) {
+        tmpInlineSpan.add(TextSpan(
+            text: await googleTranslate(elements[index].trim()),
+            style: const TextStyle(backgroundColor: Colors.yellowAccent)));
+      } else if (listRed.contains(elements[index])) {
+        tmpInlineSpan.add(TextSpan(
+            text: await googleTranslate(elements[index].trim()),
+            style: const TextStyle(color: Colors.red)));
+      } else {
+        tmpInlineSpan.add(
+          TextSpan(
+            text: await googleTranslate(elements[index].trim()),
+          ),
+        );
+      }
+    }
+
+    return tmpInlineSpan;
+  }
+
   Future<void> _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
       print('Could not launch $url');
+    }
+  }
+
+  Future<String> googleTranslate(String toTrans) async {
+    try {
+      String result = await http.postTranslate(toTrans);
+      // refactor
+      result = result
+          .split(';')[3]
+          .split('</span>')[4]
+          .replaceAll('<span id="tw-answ-target-text">', '')
+          .replaceAll('<span id="tw-answ-target-text-masculine">', '');
+      return result;
+    } catch (e) {
+      try {
+        String result = await http.postBingTranslate(toTrans);
+        var toBe = jsonDecode(result)[0]['translations'][0]['text'];
+        return toBe;
+      } catch (e) {
+        return 'Fail..';
+      }
     }
   }
 }

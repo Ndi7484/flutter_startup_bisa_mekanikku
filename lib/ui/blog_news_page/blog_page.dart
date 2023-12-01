@@ -49,9 +49,17 @@ class _BlogPageState extends State<BlogPage> {
       controller: _scrollController,
       child: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
+          // test
+          // FutureBuilder(
+          //   future: blogProv.googleTranslate('GYM6の2曲目のプログラムは「All All Night」！'),
+          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+          //     if (snapshot.data != null) {
+          //       return Text(snapshot.data.split(';')[3].split('</span>')[4]);
+          //     }
+          //     return const Text('snapshot.data');
+          //   },
+          // ),
+          // test
           if (blogProv.listElement != null)
             ...List.generate(
                 blogProv.listElement!
@@ -81,11 +89,17 @@ class _BlogPageState extends State<BlogPage> {
                               ),
                             ),
                             // title
-                            Text(
-                              blogProv.titleParser(
+                            FutureBuilder(
+                              future: blogProv.titleParser(
                                   blogProv.listElement![index].outerHtml),
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                return Text(
+                                  snapshot.data.toString(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -94,14 +108,34 @@ class _BlogPageState extends State<BlogPage> {
                               .contains('data-type="event"'))
                           ? Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: blogProv.easyContent(
-                                  blogProv.listElement![index].outerHtml),
+                              child: FutureBuilder(
+                                future: blogProv.easyContent(
+                                    blogProv.listElement![index].outerHtml),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    // If the Future has completed successfully, return the data (Widget)
+                                    return snapshot.data!;
+                                  }
+                                  return Container();
+                                },
+                              ),
                             )
                           : Padding(
                               padding: const EdgeInsets.only(top: 8.0),
-                              child: blogProv.eventContent(context,
-                                  blogProv.listElement![index].outerHtml),
-                            )
+                              child: FutureBuilder(
+                                future: blogProv.eventContent(context,
+                                    blogProv.listElement![index].outerHtml),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    // If the Future has completed successfully, return the data (Widget)
+                                    return snapshot.data!;
+                                  }
+                                  return Container();
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),

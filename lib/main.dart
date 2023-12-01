@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AdsProvider()..loadApiAds()),
         ChangeNotifierProvider(create: (context) => BookmarkProvider()),
         ChangeNotifierProvider(create: (context) => MenuProvider()..loadApiMenu(null)),
+        ChangeNotifierProvider(create: (context) => BlogProvider()..loadDrsBlogHtmlRaw()),
       ],
       child: MaterialApp(
         localizationsDelegates: context.localizationDelegates,

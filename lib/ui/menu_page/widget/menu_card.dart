@@ -18,12 +18,12 @@ class MenuCard extends StatelessWidget {
                 Image.network(
                   foodMenu.strMealThumb,
                   width: MediaQuery.of(context).size.width * 0.3,
-                  height: MediaQuery.of(context).size.width * 0.3,
+                  height: MediaQuery.of(context).size.width * 0.32,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
                   top: 0,
-                  left: 105,
+                  left: 98,
                   child: Transform.rotate(
                     angle: 0.1,
                     child: Container(
@@ -34,28 +34,38 @@ class MenuCard extends StatelessWidget {
                   ),
                 ),
               ]),
+              // title
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.fromLTRB(0, 4, 4, 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text.rich(
-                          softWrap: true,
-                          TextSpan(text: foodMenu.strMeal),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              foodMenu.strMeal,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              softWrap: true,
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            Text(
+                              "(${foodMenu.strCategory})",
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 10),
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "(${foodMenu.strCategory})",
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 10),
-                        ),
-                      ],
+                      ),
                     ),
                     const Text('Ingridients :'),
                     SizedBox(
