@@ -8,21 +8,22 @@ class FoodMenu {
     required this.strMealThumb,
     required this.strTags,
     required this.strYoutube,
-    required this.listStrIngredient, // list 20
-    required this.listStrMeasure, // list 20
+    required this.listStrIngredient,
+    required this.listStrMeasure,
     required this.strSource,
   });
-  String idMeal;
-  String strMeal;
-  String strCategory;
-  String strArea;
-  String strInstructions;
-  String strMealThumb;
-  String strTags;
-  String strYoutube;
-  List<String> listStrIngredient;
-  List<String> listStrMeasure;
-  String strSource;
+
+  final String idMeal;
+  final String strMeal;
+  final String strCategory;
+  final String strArea;
+  final String strInstructions;
+  final String strMealThumb;
+  final String strTags;
+  final String strYoutube;
+  final List<String> listStrIngredient;
+  final List<String> listStrMeasure;
+  final String strSource;
 
   factory FoodMenu.fromJson(Map<String, dynamic> json) => FoodMenu(
         idMeal: json['idMeal'],
@@ -31,10 +32,15 @@ class FoodMenu {
         strArea: json['strArea'],
         strInstructions: json['strInstructions'],
         strMealThumb: json['strMealThumb'],
-        strTags: json['strTags'],
+        strTags: json['strTags'] ?? '',
         strYoutube: json['strYoutube'],
-        listStrIngredient: List.generate(20, (index) => json['listStrIngredient${index+1}']),
-        listStrMeasure: List.generate(20, (index) => json['strMeasure${index+1}']),
-        strSource: json['strSource'],
+        listStrIngredient: List.generate(
+            20, (index) => json['strIngredient${index + 1}'] ?? ''),
+        listStrMeasure: List.generate(
+            20,
+            (index) => (json['strMeasure${index + 1}'] != ' ')
+                ? json['strMeasure${index + 1}'] ?? ''
+                : ''),
+        strSource: json['strSource'] ?? '',
       );
 }

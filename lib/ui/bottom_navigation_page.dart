@@ -49,7 +49,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: (_selectedIndex == 0) ? true : false,
       appBar: _appBarFunc(),
       body: switch (_selectedIndex) {
         0 => MainPageBody(

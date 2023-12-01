@@ -10,7 +10,7 @@ class HttpHelper {
       'https://sublimeads.com/api/random?token=HdizxtNtwjGnQdE3SY0Sxeez0bqWZx3Mo3kG7NYzs-w&id=UtNW280YrPL0bg';
   final String _urlHtmlNews =
       'https://p.eagate.573.jp/game/dan/1st/news/news.html';
-  final String _urlFoodSerach =
+  final String _urlFoodMenu =
       'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
   Future<String> getAds() async {
@@ -33,6 +33,15 @@ class HttpHelper {
     return result.statusCode.toString();
   }
 
+  Future<String> getMenuAll(String? query) async {
+    var url = Uri.parse(_urlFoodMenu + (query ?? ''));
+    http.Response result = await http.get(url);
+    if (result.statusCode == HttpStatus.ok) {
+      return result.body;
+    }
+    return result.statusCode.toString();
+  }
+
   Future<String> getPerson() async {
     var url = Uri.parse(_urlPerson);
     http.Response result = await http.get(url);
@@ -48,25 +57,11 @@ class HttpHelper {
     http.Response result = await http.get(url);
     if (result.statusCode == 200) {
       final document = parse(result.body);
-      // final body = document.querySelector('body');
       final divs = document.querySelectorAll('div');
 
       return divs[0].innerHtml;
-      // if (divs.length >= 2) {
-      // return divs[1].outerHtml;
-      // }
     }
 
     return 'Failed to fetch and parse HTML';
-  }
-
-  Future<String> getFoodListAll() async {
-    var url = Uri.parse(_urlFoodSerach);
-    http.Response result = await http.get(url);
-    if (result.statusCode == HttpStatus.ok) {
-      String responseBody = result.body;
-      return responseBody;
-    }
-    return result.statusCode.toString();
   }
 }
