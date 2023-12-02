@@ -55,8 +55,14 @@ class _AllMenuAppbarState extends State<AllMenuAppbar> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const MenuBookmark()));
           },
-          child: const Icon(Icons.bookmark),
-        )
+          child: Icon(
+            Icons.bookmark,
+            color: (provMenu.savedMenu.isNotEmpty) ? Colors.amber : null,
+          ),
+        ),
+        const SizedBox(
+          width: 4,
+        ),
       ],
     );
   }

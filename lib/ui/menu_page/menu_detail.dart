@@ -33,9 +33,11 @@ class MenuDetail extends StatelessWidget {
             const Text('Ingridients : '),
             ...List.generate(
                 foodMenu.listStrIngredient.length,
-                (index) => CustomChipWithImage(
-                    text: foodMenu.listStrIngredient[index],
-                    measure: foodMenu.listStrMeasure[index])),
+                (index) => (foodMenu.listStrIngredient[index] != '')
+                    ? CustomChipWithImage(
+                        text: foodMenu.listStrIngredient[index],
+                        measure: foodMenu.listStrMeasure[index])
+                    : Container()),
             const SizedBox(
               height: 8,
             ),

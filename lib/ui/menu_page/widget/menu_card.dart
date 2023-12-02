@@ -108,9 +108,9 @@ class MenuCard extends StatelessWidget {
                       GestureDetector(
                           onTap: () {
                             if (provMenu.savedMenu.contains(foodMenu)) {
-                              provMenu.savedMenu.remove(foodMenu);
+                              provMenu.removeBookmark(foodMenu);
                             } else {
-                              provMenu.savedMenu.add(foodMenu);
+                              provMenu.savedBookmark(foodMenu);
                             }
                           },
                           child: (!provMenu.savedMenu.contains(foodMenu))
