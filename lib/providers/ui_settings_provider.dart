@@ -4,7 +4,8 @@ import 'package:flutter_mekanikku/models/location_state.dart' as loc;
 import 'package:flutter_mekanikku/models/random_user_state.dart' as rand;
 
 class UiSettingsProvider extends ChangeNotifier {
-  late HttpHelper helper = HttpHelper();
+  // ignore: prefer_final_fields
+  late HttpHelper _helper = HttpHelper();
 
   final List<String> _carouselImage = [
     'assets/banner_1.png',
@@ -30,14 +31,14 @@ class UiSettingsProvider extends ChangeNotifier {
   }
 
   Future<List<loc.Location>> getLocation() async {
-    final data = await helper.getLocation();
+    final data = await _helper.getLocation();
     List<loc.Location> data_item = loc.locationFromJson(data);
     _items = List.generate(data_item.length, (index) => data_item[index].name);
     selectedValue ??= _items[1];
     return data_item;
   }
 
-  // List<rand.Result> _listUser = [];
+  // ignore: prefer_final_fields
   String _person = '';
   String get person => _person;
   set person(value) {
@@ -46,7 +47,7 @@ class UiSettingsProvider extends ChangeNotifier {
   }
 
   Future<List<rand.Result>> getPerson() async {
-    final data = await helper.getPerson();
+    final data = await _helper.getPerson();
     rand.RandomUser data_item = rand.randomUserFromJson(data);
     return data_item.results;
   }

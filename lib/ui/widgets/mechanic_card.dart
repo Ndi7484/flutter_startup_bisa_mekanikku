@@ -17,8 +17,9 @@ class MechanicCard extends StatelessWidget {
     final provBook = Provider.of<BookmarkProvider>(context);
 
     return Card(
+      elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(8, 8, 0, 8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,13 +30,32 @@ class MechanicCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "${result.name.title}. ${result.name.first} ${result.name.last}",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6 - 12,
+                  child: Text(
+                    "${result.name.title}. ${result.name.first} ${result.name.last}",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.fade,
+                  ),
                 ),
                 Text(
                   result.email,
-                  style: const TextStyle(color: Colors.grey, fontSize: 10),
+                  style: const TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6 - 12,
+                  child: Text(
+                    "${result.location.street.name}, ${result.location.street.number}, ${result.location.city}",
+                    style: TextStyle(color: Colors.grey[700], fontSize: 10),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  "phone : ${result.phone}",
+                  style: TextStyle(color: Colors.grey[700], fontSize: 11),
                 ),
               ],
             ),

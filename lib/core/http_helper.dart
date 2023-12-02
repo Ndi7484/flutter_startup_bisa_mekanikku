@@ -99,8 +99,8 @@ class HttpHelper {
       "fromLang": 'ja',
       "text": toTrans,
       "to": 'en',
-      "token": 'S9-RJiHEX3Oec1S6LHX62nYw6xkmUJbZ',
-      "key" : '1701449842823',
+      "token": 'gHdh3kHxDeV-TRen2Rw6a_iiSDr0Hj79',
+      "key" : '1701497161301',
       "tryFetchingGenderDebiasedTranslations" : 'true'
     };
 

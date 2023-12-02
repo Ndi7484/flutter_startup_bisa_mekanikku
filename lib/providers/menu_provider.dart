@@ -17,7 +17,7 @@ class MenuProvider extends ChangeNotifier {
 
   String _error = '';
   String get error => _error;
-  set error(value){
+  set error(value) {
     _error = value;
     notifyListeners();
   }
@@ -34,6 +34,7 @@ class MenuProvider extends ChangeNotifier {
       jsonResultFood = tmp;
     }
   }
+
   // Future<List<FoodMenu>> loadApiMenu() async {
   //   final data = await helper.getMenuAll();
   //   List<FoodMenu> tmp = List.generate(
@@ -44,15 +45,16 @@ class MenuProvider extends ChangeNotifier {
   //   );
   //   return tmp;
   // }
-  List<FoodMenu> savedMenu = [];
-
+  List<FoodMenu> _savedMenu = [];
+  List<FoodMenu> get savedMenu => _savedMenu;
+  
   void savedBookmark(FoodMenu value) {
-    savedMenu.add(value);
+    _savedMenu.add(value);
     notifyListeners();
   }
 
   void removeBookmark(FoodMenu value) {
-    savedMenu.remove(value);
+    _savedMenu.remove(value);
     notifyListeners();
   }
 }
